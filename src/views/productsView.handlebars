@@ -1,0 +1,36 @@
+<main class="main_products">
+    <section class="greeting">
+        <h1>Hola, {{user.name}} {{user.first_name}} {{user.last_name}} <span>({{user.rol}})</span></h1>
+        {{!-- <p>Correo: {{user.email}}</p> --}}
+        {{#if onlyAdmin}}
+            <a href="/realtimeproducts"><button>Administrar Productos</button></a>
+        {{/if}}
+        <a href="/api/session/logout"><button>Cerrar sesión</button></a>
+    </section>
+    <h2>Lista de Productoss</h2>
+    <section class="products_container">
+        {{#each products}}
+            <div class="product">
+                <h3>{{this.title}}</h3>
+                <span>${{this.price}}</span>
+                <p>{{this.description}}</p>
+                <button class="add-to-cart-button" onclick="addToCart('{{_id}}')">Agregar al Carrito</button>
+            </div>
+        {{/each}}
+    </section>
+    <section class="pagination_container">
+        <div class="pagination">
+            <div class="prev_page">
+                {{#if pagination.hasPrevPage}}
+                <a class="pgnt_btn" href="/view/products?page={{pagination.prevPage}}">Página anterior</a>
+                {{/if}}
+            </div>
+            <div class="next_page">
+                {{#if pagination.hasNextPage}}
+                <a class="pgnt_btn" href="/view/products?page={{pagination.nextPage}}">Página siguiente</a>
+                {{/if}}
+            </div>
+        </div>
+    </section>
+</main>
+<script src="/js/productsView.js"></script>
